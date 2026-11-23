@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<title>Hager Family · Christmas 2026</title>
+<style>
+@font-face{font-family:'Instrument Serif';src:url('./fonts/InstrumentSerif-99cc6edf.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Instrument Serif';src:url('./fonts/InstrumentSerif-fa1a1a83.woff2') format('woff2');font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:'DM Sans';src:url('./fonts/DMSans-f6298972.woff2') format('woff2');font-weight:100 1000;font-style:normal;font-display:swap}
+@font-face{font-family:'Space Grotesk';src:url('./fonts/SpaceGrotesk-a57c9413.woff2') format('woff2');font-weight:300 700;font-style:normal;font-display:swap}
+
+:root{
+  --crown:#1B0C20; --crown-2:#2A1130; --mystic:#3B1A4C; --triton:#7C2D50;
+  --ink:#F3EDE2; --ink-2:rgba(243,237,226,.78); --dim:rgba(243,237,226,.55);
+  --gold:#D9A648; --gold-2:#F2C96E; --pine:#2F6B4F; --berry:#C2474F;
+  --hudson:#5FC0AE; --hendrix:#E8706B; --both:#D9A648; --recs:#A99BF0;
+  --line:rgba(243,237,226,.14); --card:rgba(27,12,32,.62);
+  --display:'Instrument Serif',Georgia,serif;
+  --head:'Space Grotesk','Segoe UI',Arial,sans-serif;
+  --body:'DM Sans','Segoe UI',Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:#170A1C}
+body{margin:0;color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.6;background:#170A1C;min-height:100vh}
+a{color:var(--gold-2)}
+button,select,input{font:inherit}
+
+/* header */
+header{position:relative;overflow:hidden;text-align:center;padding:46px 20px 40px;
+  background:radial-gradient(ellipse 120% 100% at 50% 40%, #1B0C20 0%, #2A1130 55%, #7C2D50 100%);border-bottom:1px solid var(--line)}
+.snow{position:absolute;inset:0;pointer-events:none}
+.snow i{position:absolute;top:-10px;width:5px;height:5px;border-radius:50%;background:rgba(243,237,226,.55);animation:fall linear infinite}
+@keyframes fall{to{transform:translateY(420px)}}
+@media (prefers-reduced-motion:reduce){.snow{display:none}}
+.mono{position:relative;display:inline-grid;place-items:center;width:132px;height:132px;border-radius:50%;
+  border:1.5px solid var(--gold);box-shadow:0 0 0 6px rgba(217,166,72,.12), inset 0 0 0 5px rgba(217,166,72,.18)}
+.mono span{font-family:var(--display);font-size:66px;line-height:1;color:var(--gold-2);letter-spacing:-.04em;transform:translateY(3px)}
+.mono span em{font-style:italic}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(2.6rem,8vw,4.4rem);line-height:1;margin:22px 0 10px;letter-spacing:-.02em}
+h1 em{color:var(--gold-2)}
+.count{font-family:var(--head);font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+.count b{font-size:22px;letter-spacing:.04em;color:var(--ink);margin:0 4px}
+.intro{max-width:640px;margin:18px auto 0;color:var(--ink-2);font-size:17px}
+
+/* nav */
+nav{position:sticky;top:0;z-index:20;background:rgba(20,8,24,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .in{max-width:1180px;margin:0 auto;padding:10px 18px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+nav a{font-family:var(--head);font-size:14px;font-weight:600;letter-spacing:.06em;text-decoration:none;color:var(--ink);
+  padding:7px 14px;border-radius:999px;border:1px solid var(--line)}
+nav a .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:1px}
+nav .sp{flex:1}
+nav .tally{font-family:var(--head);font-size:13px;color:var(--ink-2)}
+.btn{cursor:pointer;border:1px solid var(--gold);background:transparent;color:var(--gold-2);border-radius:999px;padding:7px 14px;font-family:var(--head);font-size:13px;font-weight:600;letter-spacing:.04em}
+.btn:hover{background:rgba(217,166,72,.12)}
+.filter{display:flex;gap:4px;border:1px solid var(--line);border-radius:999px;padding:3px}
+.filter button{cursor:pointer;border:0;background:transparent;color:var(--ink-2);border-radius:999px;padding:4px 11px;font-family:var(--head);font-size:13px}
+.filter button.on{background:var(--ink);color:var(--crown)}
+
+main{max-width:1180px;margin:0 auto;padding:10px 18px 80px}
+section.kid{margin-top:44px;scroll-margin-top:70px}
+.kidhead{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;border-bottom:2px solid var(--accent);padding-bottom:10px;margin-bottom:8px}
+.kidhead h2{font-family:var(--display);font-weight:400;font-size:clamp(2.3rem,6vw,3.4rem);margin:0;line-height:1;color:var(--accent)}
+.kidhead p{margin:0;color:var(--ink-2);font-size:16px}
+.aside{color:var(--dim);font-size:15px;margin:4px 0 0}
+
+/* wish card */
+.wish{margin-top:22px;border:1px solid var(--line);border-radius:18px;background:var(--card);padding:18px 18px 20px;position:relative}
+.wish.claimed{border-color:rgba(95,192,174,.45)}
+.whead{display:flex;gap:14px;align-items:flex-start}
+.num{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-family:var(--head);font-weight:700;font-size:16px;
+  background:var(--accent);color:var(--crown)}
+.wtitle{flex:1;min-width:0}
+.wtitle h3{margin:0;font-family:var(--display);font-weight:400;font-size:1.75rem;line-height:1.1}
+.words{margin:6px 0 0;font-family:var(--display);font-style:italic;font-size:1.15rem;color:var(--ink-2)}
+.words::before{content:"In his words: ";font-family:var(--head);font-style:normal;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-right:4px}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.tag{font-family:var(--head);font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:999px;border:1px solid var(--line);color:var(--ink-2)}
+.tag.top{border-color:var(--gold);color:var(--gold-2)}
+.tag.ask{border-color:var(--berry);color:#F2A0A4}
+.tag.got{border-color:var(--hudson);color:var(--hudson)}
+.note{margin:12px 0 0 54px;color:var(--ink-2);font-size:16px;max-width:60em}
+.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin-top:16px}
+.opt{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:rgba(243,237,226,.04);transition:border-color .15s, transform .15s}
+.opt:hover{transform:translateY(-2px)}
+.opt.picked{border-color:var(--gold);box-shadow:0 0 0 2px rgba(217,166,72,.35)}
+.opt.taken{border-color:var(--hudson);box-shadow:0 0 0 2px rgba(95,192,174,.35)}
+.ph{position:relative;display:block;background:#fff;aspect-ratio:1/1}
+.ph img{width:100%;height:100%;object-fit:contain;padding:12px;display:block}
+.ribbon{position:absolute;left:0;right:0;bottom:0;background:var(--hudson);color:var(--crown);font-family:var(--head);font-weight:700;font-size:13px;padding:6px 10px;text-align:center}
+.star{position:absolute;top:8px;right:8px;background:var(--gold);color:var(--crown);font-family:var(--head);font-weight:700;font-size:12px;padding:3px 9px;border-radius:999px}
+.ob{padding:12px 13px 13px;display:flex;flex-direction:column;gap:8px;flex:1}
+.ot{font-weight:600;font-size:16px;line-height:1.35}
+.meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:14px;color:var(--ink-2)}
+.shop{font-family:var(--head);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:6px;background:rgba(243,237,226,.1)}
+.shop.amazon{background:#FF9900;color:#111}
+.shop.lego{background:#E3000B;color:#fff}
+.shop.bn{background:#2A5934;color:#fff}
+.price{font-weight:700;color:var(--ink)}
+.on{color:var(--dim);font-size:13px}
+.oc{font-size:14px;color:var(--dim)}
+.acts{margin-top:auto;display:flex;flex-direction:column;gap:7px}
+.go{display:block;text-align:center;text-decoration:none;font-family:var(--head);font-weight:600;font-size:14px;padding:8px;border-radius:9px;background:var(--gold);color:var(--crown)}
+.go:hover{background:var(--gold-2)}
+.pick{cursor:pointer;border:1px dashed rgba(217,166,72,.6);background:transparent;color:var(--gold-2);border-radius:9px;padding:6px;font-family:var(--head);font-size:13px;font-weight:600}
+.opt.picked .pick{border-style:solid;background:rgba(217,166,72,.15)}
+.who{width:100%;padding:7px 9px;border-radius:9px;border:1px solid var(--line);background:#24112B;color:var(--ink);font-size:14px}
+.opt.taken .who{border-color:var(--hudson)}
+.other{width:100%;padding:6px 9px;border-radius:9px;border:1px solid var(--line);background:#24112B;color:var(--ink);font-size:14px}
+.rm{display:flex;align-items:center;gap:7px;font-size:13.5px;color:var(--dim);cursor:pointer;padding:2px 2px 0}
+.rm input{width:16px;height:16px;accent-color:var(--berry);cursor:pointer}
+.opt.removed{opacity:.45;border-style:dashed}
+.opt.removed .rm{color:#F2A0A4}
+.wish.allgone{opacity:.6}
+.why{margin:6px 0 0;font-size:16px;color:var(--ink-2)}
+.why::before{content:"Why this: ";font-family:var(--head);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-right:4px}
+.tag.fits{border-color:var(--recs);color:var(--recs)}
+.tag.rec{background:var(--recs);border-color:var(--recs);color:var(--crown)}
+.showrm{display:flex;align-items:center;gap:6px;font-family:var(--head);font-size:13px;color:var(--ink-2);cursor:pointer}
+.showrm input{accent-color:var(--berry)}
+
+/* extra links per wish */
+.extra{margin:16px 0 0 54px}
+.extra summary{cursor:pointer;font-family:var(--head);font-size:13px;font-weight:600;color:var(--gold);letter-spacing:.04em}
+.extra form{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.extra input{flex:1 1 220px;padding:8px 10px;border-radius:9px;border:1px solid var(--line);background:#24112B;color:var(--ink);font-size:15px}
+.links{list-style:none;padding:0;margin:10px 0 0}
+.links li{display:flex;gap:10px;align-items:center;font-size:15px;padding:4px 0;border-top:1px solid var(--line)}
+.links li a{word-break:break-all}
+.links li .x{cursor:pointer;border:0;background:transparent;color:var(--dim);font-size:13px;margin-left:auto}
+
+/* questions */
+.qs{margin-top:44px;border:1px solid rgba(194,71,79,.5);border-radius:18px;padding:20px 22px;background:rgba(124,45,80,.18);scroll-margin-top:70px}
+.qs h2{font-family:var(--display);font-weight:400;font-size:2.3rem;margin:0 0 4px}
+.qs p.sub{margin:0 0 12px;color:var(--ink-2);font-size:16px}
+.qs ol{margin:0;padding-left:22px}
+.qs li{margin:10px 0;color:var(--ink);font-size:17px}
+.qs li b{color:var(--gold-2);font-weight:600}
+footer{max-width:1180px;margin:0 auto;padding:0 18px 50px;color:var(--dim);font-size:14px}
+footer .mono-s{font-family:var(--display);font-style:italic;color:var(--gold);font-size:22px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--crown);padding:10px 18px;border-radius:999px;font-family:var(--head);font-weight:600;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:50}
+.toast.show{opacity:1}
+.hide{display:none!important}
+@media (max-width:600px){.note,.extra{margin-left:0}.opts{grid-template-columns:1fr 1fr}.ot{font-size:14.5px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="snow" id="snow"></div>
+  <div class="mono" aria-label="Hager Family"><span>H<em>F</em></span></div>
+  <h1>Christmas <em>2026</em></h1>
+  <div class="count"><b id="days">--</b> days to Christmas</div>
+  <p class="intro">Hudson and Hendrix wrote their lists by hand. Here they are with pictures and links. Tap a picture to see it on the store's site, and pick who's getting it from the dropdown so nobody doubles up.</p>
+</header>
+
+<nav>
+  <div class="in">
+    <a href="#hudson"><span class="dot" style="background:var(--hudson)"></span>Hudson</a>
+    <a href="#hendrix"><span class="dot" style="background:var(--hendrix)"></span>Hendrix</a>
+    <a href="#both"><span class="dot" style="background:var(--both)"></span>Both boys</a>
+    <a href="#recs-hudson"><span class="dot" style="background:var(--recs)"></span>SAGE's picks</a>
+    <a href="#questions"><span class="dot" style="background:var(--berry)"></span>Still to sort out</a>
+    <span class="sp"></span>
+    <div class="filter" role="group" aria-label="Show">
+      <button data-f="all" class="on">All</button>
+      <button data-f="open">Still open</button>
+      <button data-f="taken">Taken</button>
+    </div>
+    <label class="showrm hide" id="showrmWrap"><input type="checkbox" id="showrm"> <span id="showrmTxt">Show removed</span></label>
+    <span class="tally" id="tally"></span>
+    <button class="btn" id="copy">Copy the summary</button>
+  </div>
+</nav>
+
+<main id="main"></main>
+
+<footer>
+  <p><span class="mono-s">HF</span> &nbsp;Prices were checked on November 21 and 23, 2026 and they move, especially on Amazon. Always check the store page before buying.</p>
+  <p>For now, gold "kid's pick" stars and who's-getting-it choices are saved on the device you make them on.</p>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const AMZ = a => 'https://www.amazon.com/dp/' + a;
+const IMG = a => './images/' + a + '.jpg';
+const P = {
+  // LEGO Marvel
+  B0G2SY1KCV:['Spider-Man vs. Hulk Epic Clash (76350)','amazon','$89.95','4.7'],
+  B0GF32WDX2:['Avengers: Doomsday Quinjet (76347)','amazon','$59.95','5.0'],
+  B0DRW735TS:['Spider-Man vs. Doc Ock Subway Train (76321)','amazon','$54.97','4.9'],
+  B0G2SXJKWZ:['Spider-Man Prison Transport Chase (76349)','amazon','$39.99','4.9'],
+  B0FMS91VM1:['Iron Man Mark 3 Collectors’ Edition (76344)','amazon','$129.95','4.8'],
+  B0GF3DRQRF:['Epic Battle: Avengers: Doomsday (76348)','amazon','$99.99','4.9'],
+  // Stranger Things
+  'lego-11370':['The Creel House (11370), 2,593 pieces, rated 18+','lego','$299.99','', 'https://www.lego.com/en-us/product/stranger-things-the-creel-house-11370'],
+  'lego-40879':['BrickHeadz Eleven, Max, Demogorgon & Holly (40879)','lego','$31.99','', 'https://www.lego.com/en-us/product/eleven-max-demogorgon-and-holly-figures-40879'],
+  B09ST3YV73:['BrickHeadz Demogorgon & Eleven (older set, no longer made)','amazon','$72.99','4.7'],
+  // Hudson singles
+  B0CV276VQL:['LEGO Marvel Dancing Groot (76297)','amazon','$47.95','4.8'],
+  // From his LEGO app, Nov 23
+  'lego-76354':['LEGO Marvel S.H.I.E.L.D. Helicarrier (76354), 3,057 pieces, rated 18+','lego','$399.99','', 'https://www.lego.com/en-us/product/s-h-i-e-l-d-helicarrier-76354'],
+  B0G2T1BXG5:['LEGO Marvel S.H.I.E.L.D. Helicarrier (76354)','amazon','$392.34','3.7'],
+  B0FMS5T4MN:['LEGO Marvel Ravager Jumpsuit Groot (76341), 604 pieces','amazon','$47.95','4.9'],
+  'lego-77081':['LEGO Fortnite KIT (77081), 1,230 pieces, rated 12+','lego','$109.99','', 'https://www.lego.com/en-us/product/kit-77081'],
+  B0G2SZZ6TR:['LEGO Fortnite KIT (77081)','amazon','$109.95','4.9'],
+  B0B59XVRPH:['Roblox DevSeries Arsenal Collector Bundle (comes with 3 in-game item codes)','amazon','$17.99',''],
+  B0H9T4ZKT9:['Squishable Mini Wraith, Spooky Collection, 10 in','amazon','$33.99',''],
+  'squishable-marshmallow':['Squishable Mini Comfort Food Marshmallow Stick','bn','$36.99','', 'https://www.barnesandnoble.com/w/mini-comfort-food-marshmallow-squishables/1141116583'],
+  // Iron Man
+  B0DQSP8MXF:['ATOKNG MK5 helmet, full size: voice, touch & remote','amazon','$238.00','4.4'],
+  B0DDNP55ZW:['Mark 5 helmet, gold: voice, sensing & remote','amazon','$249.99','4.1'],
+  B0DRW99NGJ:['YONTYEQ MK5 motorized helmet, full size','amazon','$199.06','4.3'],
+  B0DR66BWT9:['Kids & teens open/close helmet with glowing eyes','amazon','$79.99','4.2'],
+  // Deadpool mask
+  B0D512YRT2:['Deadpool full-face mask, mesh & hard eyes (wearable, adult)','amazon','$24.95','4.2'],
+  B0DS8VHQ6S:['Zadin realistic full-face mask (wearable)','amazon','$24.99','4.4'],
+  B0CKTTMVCY:['Deadpool fabric mask (wearable, adult)','amazon','$14.75','4.0'],
+  B083ZYW827:['Marvel Legends Deadpool’s Head: moves & talks (for display, not worn)','amazon','$99.99','4.7'],
+  // Go-kart
+  B083G8M85R:['Crazy Cart Shift drifting go-kart','amazon','$148.00','4.7'],
+  B0D937T99N:['Aosom 24V drift go-kart, ages 8 to 12','amazon','$226.09','4.2'],
+  B0HFWL5BY8:['24V drift go-kart, ages 6 to 14, up to 9.3 mph','amazon','$299.99','4.8'],
+  // Zipstring
+  B0FQLK994V:['ZipString Aracna glow-in-the-dark web-shooter','amazon','$44.95','4.4'],
+  B09ZNVR75Q:['Electric reel-in web launcher','amazon','$33.99','4.1'],
+  // Spider-Man pj, plush, hoodie
+  B07K1GS811:['Spider-Man long-sleeve pajamas','amazon','$32.99','4.6'],
+  B0FV5GXBYG:['Marvel Spider-Man 4-piece pajama set','amazon','$20.05','4.7'],
+  B0DK7XB4B7:['Squishmallows 12 in Spider-Man','amazon','$19.99','4.9'],
+  B0BSMY1JHV:['Talking Spider-Man plush, 10 sounds','amazon','$14.49','4.7'],
+  B0G263JJ44:['Squishmallows 12 in Spider-Man / Venom mashup','amazon','$16.99','4.9'],
+  B08618BNFS:['Spider-Man zip-up hoodie with mask hood','amazon','$26.57','4.7'],
+  B0H9VC5VJ9:['Spider-Man pullover hoodie, big kids','amazon','$19.99','4.6'],
+  B091D6YNR7:['Spider-Man red pullover hoodie','amazon','$16.69','4.7'],
+  // Deadpool pj, plush
+  B0DCZMCFTC:['Deadpool hooded onesie (adult sizes; smallest new size is X-Large)','amazon','$29.99','4.1'],
+  // Hoodie variants
+  B0FKBW4CH6:['Spider-Man zip-up hoodie, mask hood, red & blue','amazon','$26.99','4.4'],
+  B0861XGD9N:['Miles Morales zip-up hoodie, mask hood, black & red','amazon','$28.47','4.7'],
+  B0FFTL4HPG:['Miles Morales zip-up hoodie, mask hood, navy','amazon','$23.99','4.4'],
+  B0CLM74XNT:['Miles Morales zip-up hoodie, black','amazon','$19.99','4.3'],
+  B0D236F13J:['Half Miles Morales, half Spider-Man zip-up hoodie','amazon','$24.00','4.7'],
+  B0FFN3NLP6:['Iron Man zip-up hoodie, mask hood','amazon','$22.99','4.4'],
+  B0D82R3D7S:['Black spider zip-up hoodie','amazon','$28.13','4.5'],
+  // Special request and recommendations
+  B0FMYY67LH:['LEGO Icons Project Hail Mary (11389), rated 18+','amazon','$99.99','4.9'],
+  B0D5RZL1L6:['Marvel United: Multiverse Core Box','amazon','$29.99','4.6'],
+  B0C7WQRCPB:['Marvel’s Spider-Man 2 (PS5), rated T for Teen','amazon','$29.99','4.8'],
+  B0G2SYCFXD:['LEGO Marvel Spider-Man Hero Figure (76346)','amazon','$99.95','4.6'],
+  B08TMX7DWK:['Marvel Legends Iron Man Nano Gauntlet, lights up','amazon','$99.99','4.6'],
+  B0FFKL233T:['Stranger Things: Welcome to the Hellfire Club Adventure Game','amazon','$34.95','4.8'],
+  // Pajamas and cozy
+  B0FZF7FN8T:['Deadpool blanket set, 46 x 60 in, with stickers','amazon','$22.99','4.9'],
+  B0H69SHCV2:['Kids’ hooded one-piece pajamas: Spider-Man, Miles Morales or Ghost-Spider','amazon','$29.59','4.5'],
+  B0HJ2N259N:['Stranger Things: Tales From ’85 kids’ pajamas, long','amazon','$29.99','5.0'],
+  B0C53XN84Y:['Stranger Things Hellfire Club kids’ pajama set, short sleeve','amazon','$19.00','4.8'],
+  B0BFFYZC11:['Stranger Things Hellfire Club youth hoodie','amazon','$31.19','4.3'],
+  B0BSR3ZHFF:['I Am Groot kids’ pajama set','amazon','$22.00','4.6'],
+  B0B5DV2Y2N:['Stranger Things Hellfire Club fleece blanket','amazon','$24.61','4.7'],
+  B08HBMZNB1:['Squishable Mini Reaper, 7 in','amazon','$27.99','4.8'],
+  B0BKWPGHY3:['Spider-Man fleece blanket hoodie, one size','amazon','$40.46','4.6'],
+  B0F4Z5FKL6:['Spider-Man plush slippers','amazon','$28.99','4.6'],
+  B0CM6VRRMX:['Miles Morales & Venom hoodie and pants set','amazon','$37.99','4.6'],
+  B09PJTZSYJ:['Deadpool 10 in plush','amazon','$19.97','4.6'],
+  B0CDKZY91G:['Deadpool 12 in talking plush','amazon','$11.60','4.6'],
+  B0D1LT82YZ:['Dogpool 8 in plush','amazon','$27.99','4.8'],
+  // PS5
+  B0FRGTYSL5:['PlayStation 5 console, 1TB','amazon','',''],
+  B0FRGMYJMG:['PlayStation 5 Digital Edition, 825GB (no disc drive)','amazon','',''],
+  // Pinball
+  B0C4DSCCNH:['Lexibook Spider-Man electronic pinball','amazon','$39.99','4.0'],
+  B0C5F3BZ7G:['Retro arcade electronic pinball, tabletop','amazon','$46.74','4.2'],
+  B08KR87G98:['New Era pinball, tabletop or floor, LED score','amazon','$49.99','4.3'],
+  B0FWRSMTG4:['Minecraft arcade pinball','amazon','$59.99','4.2'],
+  B08P5XGHJG:['Smartivity build-it-yourself pinball','amazon','$27.74','4.5'],
+};
+const SHOP = {amazon:'Amazon', lego:'LEGO.com', bn:'Barnes & Noble'};
+
+const LISTS = [
+ { id:'hudson', name:'Hudson', accent:'var(--hudson)', blurb:'From his list, one special request, and three more he picked in the LEGO app.',
+   wishes:[
+   { n:1, title:'A LEGO Marvel set', words:'lego set marvel', note:'Four sets to choose from.', opts:['B0GF32WDX2','B0G2SXJKWZ','B0FMS91VM1','B0GF3DRQRF'] },
+   { n:2, title:'A mini pinball machine', words:'mini pinball machine', note:'One for each boy. Hendrix has his own on his list, so they can be different. The first one is Spider-Man.', opts:['B0C4DSCCNH','B0C5F3BZ7G','B08KR87G98','B0FWRSMTG4','B08P5XGHJG'] },
+   { n:3, title:'A LEGO Stranger Things set', words:'stranger things Lego set', note:'LEGO makes one big Stranger Things set right now, The Creel House, at $299.99. The BrickHeadz four-pack is the small one. The third is an older set that’s no longer made, so it costs more than it used to.', opts:['lego-11370','lego-40879','B09ST3YV73'] },
+   { n:4, title:'LEGO Marvel Dancing Groot', words:'LEGO MARVEL dancing groot', note:'Exact match. LEGO has retired this set, so LEGO.com no longer sells it. Amazon still has it.', opts:['B0CV276VQL'] },
+   { n:'+', title:'LEGO Project Hail Mary', star:'Special request', note:'The Hail Mary ship on a display stand. Rated 18+ on the box, like The Creel House.', opts:['B0FMYY67LH'] },
+   { n:6, title:'Squishable Mini Wraith', words:'Squishable mini wraith - spooky collection 10 inch soft toy collectible stuffed animal', note:'Exact match, and it’s the blue one.', opts:['B0H9T4ZKT9'] },
+   { n:7, title:'Squishable Marshmallow Stick', words:'Mini comfort food marshmallow stick - Squishable', star:'“Please this one”', note:'Not on Amazon. Barnes & Noble has it.', opts:['squishable-marshmallow'] },
+   { n:8, title:'LEGO S.H.I.E.L.D. Helicarrier', star:'From his LEGO app', note:'The Avengers’ flying aircraft carrier, new this year: 3,057 pieces, rated 18+ on the box. The biggest set on the list, a good one for a few people to go in on together.', opts:['lego-76354','B0G2T1BXG5'] },
+   { n:9, title:'LEGO Ravager Jumpsuit Groot', star:'From his LEGO app', note:'Groot in his red Ravager jumpsuit, with the bomb timer. LEGO.com says it ships in 60 days, which is after Christmas, so Amazon is the one to use.', opts:['B0FMS5T4MN'] },
+   { n:10, title:'LEGO Fortnite KIT', star:'From his LEGO app', note:'The KIT robot from Fortnite, with a bonus in-game outfit code in the box. About the same price at LEGO.com and Amazon.', opts:['lego-77081','B0G2SZZ6TR'] },
+ ]},
+ { id:'hendrix', name:'Hendrix', accent:'var(--hendrix)', blurb:'Eleven on his list. The PS5 is for both boys, so it lives under Both boys.',
+   wishes:[
+   { n:1, title:'Iron Man helmet with voice control', words:'iron man helmat that has voices controll and face recognition. Amazon. I realy realy want this', star:'Top of his list', ask:true,
+     note:'None of the helmets I found can actually recognize faces. The best ones open and close when you talk to them, touch them, or press a remote. The first two are full adult size, so they may be big on him. The third is made for kids and teens.', opts:['B0DQSP8MXF','B0DDNP55ZW','B0DR66BWT9'] },
+   { n:2, title:'A very realistic Deadpool mask', words:'very relistic deadpool mask', note:'Masks he can wear. All three come in adult sizes.', opts:['B0D512YRT2','B0DS8VHQ6S','B0CKTTMVCY'] },
+   { n:3, title:'A go-kart', words:'go krat', note:'Electric go-karts made for kids. At $148 to $300, a good one for a few people to go in on together.', opts:['B083G8M85R','B0D937T99N','B0HFWL5BY8'] },
+   { n:4, title:'A mini pinball machine', words:'a mini pin ball machine', note:'One for each boy. Hudson has his own on his list, so they can be different. The first one is Spider-Man.', opts:['B0C4DSCCNH','B0C5F3BZ7G','B08KR87G98','B0FWRSMTG4','B08P5XGHJG'] },
+   { n:5, title:'Spider-Man web-shooter (ZipString)', words:'sipder man zipsring', note:'ZipString makes a Spider-Man-style wrist launcher called the Aracna. It shoots a loop of string out and reels it back.', opts:['B0FQLK994V','B09ZNVR75Q'] },
+   { n:6, title:'Spider-Man pajamas', words:'Spider man jammis', ask:true, note:'Pick his size on the store page.', opts:['B07K1GS811','B0FV5GXBYG'] },
+   { n:7, title:'Spider-Man plush', words:'spider man plushe', opts:['B0DK7XB4B7','B0BSMY1JHV','B0G263JJ44'] },
+   { n:8, title:'Deadpool pajamas', words:'Deadpool jammis', note:'Nobody makes Deadpool pajamas in kids’ sizes: I checked Amazon, Target, Walmart and Hot Topic. Closest in kid sizes: a Deadpool blanket, and the same hooded one-piece style as the onesie in Spider-Man or Miles Morales. The adult Deadpool onesie is last, in case a small adult size turns up.', opts:['B0FZF7FN8T','B0H69SHCV2','B0DCZMCFTC'] },
+   { n:9, title:'Deadpool plush', words:'Deadpool plushe', opts:['B09PJTZSYJ','B0CDKZY91G','B0D1LT82YZ'] },
+   { n:11, title:'Spider-Man hoodie', words:'spider man hoody', star:'He likes the first one', note:'The first one is his favorite. After it: the same mask-hood style in Miles Morales and Iron Man versions. I couldn’t find an Iron Spider hoodie in kids’ sizes. Pick a size between 8 and 12 on the store page.', opts:['B08618BNFS','B0FKBW4CH6','B0861XGD9N','B0FFTL4HPG','B0CLM74XNT','B0D236F13J','B0FFN3NLP6','B0D82R3D7S','B0H9VC5VJ9','B091D6YNR7'] },
+ ]},
+ { id:'both', name:'Both boys', accent:'var(--both)', blurb:'Gifts for the two of them together.',
+   wishes:[
+   { n:'★', title:'A PS5', words:'a ps5 (on Hendrix’s list, for both boys)', note:'Disc or digital: the disc one plays games on discs and the digital one only plays downloads. The price moves a lot, so check the page.', ask:true, opts:['B0FRGTYSL5','B0FRGMYJMG'] },
+ ]},
+ { id:'recs-hudson', name:'SAGE’s picks for Hudson', accent:'var(--recs)', recs:true, blurb:'Recommendations. Not on his list: ideas based on what he asked for.',
+   wishes:[
+   { n:'a', title:'Stranger Things pajamas', why:'He asked for Stranger Things LEGO. Two kids’ sets: long, and a Hellfire Club short-sleeve.', opts:['B0HJ2N259N','B0C53XN84Y'] },
+   { n:'b', title:'Stranger Things Hellfire Club hoodie', why:'The Hellfire Club shirt from the show, as a youth hoodie.', opts:['B0BFFYZC11'] },
+   { n:'c', title:'Stranger Things Hellfire Club blanket', why:'For the couch on movie night.', opts:['B0B5DV2Y2N'] },
+   { n:'d', title:'I Am Groot pajamas', why:'Goes with the Dancing Groot LEGO.', opts:['B0BSR3ZHFF'] },
+   { n:'e', title:'Squishable Mini Reaper', why:'Same Spooky Collection as the Mini Wraith he asked for.', opts:['B08HBMZNB1'] },
+   { n:'f', title:'Stranger Things Hellfire Club game', why:'A Dungeons & Dragons adventure set in Stranger Things, the game the kids play in the show.', opts:['B0FFKL233T'] },
+   { n:'g', title:'A second ZipString web-shooter', why:'Hendrix asked for one. With two, they sling together instead of taking turns.', opts:['B0FQLK994V'] },
+ ]},
+ { id:'recs-hendrix', name:'SAGE’s picks for Hendrix', accent:'var(--recs)', recs:true, blurb:'Recommendations. Not on his list: ideas based on what he asked for.',
+   wishes:[
+   { n:'a', title:'Spider-Man blanket hoodie', why:'A wearable fleece blanket with a hood. Pajama-adjacent, and all Spider-Man.', opts:['B0BKWPGHY3'] },
+   { n:'b', title:'Miles Morales hoodie and pants set', why:'He liked the Miles Morales hoodies. This one comes with matching pants.', opts:['B0CM6VRRMX'] },
+   { n:'c', title:'Spider-Man slippers', why:'To finish the pajama look.', opts:['B0F4Z5FKL6'] },
+   { n:'d', title:'LEGO Spider-Man Hero Figure', why:'A big buildable Spider-Man, for the boy whose list is half Spider-Man.', opts:['B0G2SYCFXD'] },
+   { n:'e', title:'Iron Man Nano Gauntlet', why:'Goes with the Iron Man helmet. It lights up and the fingers move. Collector size, made for adults.', opts:['B08TMX7DWK'] },
+ ]},
+ { id:'recs', name:'SAGE’s picks for both', accent:'var(--recs)', recs:true, blurb:'Recommendations for the two of them together.',
+   wishes:[
+   { n:'a', title:'Marvel United: Multiverse', why:'A team-up board game: everyone plays a Marvel hero and works together against one villain, so nobody loses to their brother.', opts:['B0D5RZL1L6'] },
+   { n:'b', title:'Marvel’s Spider-Man 2 for PS5', why:'Goes with the PS5. The Spider-Man game, with both Peter Parker and Miles Morales. Rated T for Teen.', opts:['B0C7WQRCPB'] },
+ ]},
+];
+
+const QUESTIONS = [
+ ['Sizes', 'Hendrix is 8 to 12 for the hoodie. What size pajamas for each boy? The pajama picks need it.'],
+ ['PS5', 'Disc or digital?'],
+];
+
+// carry over choices made before items moved between lists
+const MOVED = {'hendrix:B0FRGTYSL5':['both:B0FRGTYSL5'], 'hendrix:B0FRGMYJMG':['both:B0FRGMYJMG'],
+  'recs:B0FQLK994V':['recs-hudson:B0FQLK994V'], 'recs:B0FFKL233T':['recs-hudson:B0FFKL233T'],
+  'recs:B0G2SYCFXD':['recs-hendrix:B0G2SYCFXD'], 'recs:B08TMX7DWK':['recs-hendrix:B08TMX7DWK']};
+for (const a of ['B0C4DSCCNH','B0C5F3BZ7G','B08KR87G98','B0FWRSMTG4','B08P5XGHJG']) MOVED['both:'+a] = ['hudson:'+a, 'hendrix:'+a];
+
+/* state: picks[optKey]=true, who[optKey]="name", other[optKey]="text", links[wishKey]=[{u,t}] */
+const KEY = 'hager-xmas-2026';
+let S = {picks:{}, who:{}, other:{}, links:{}, removed:{}};
+try{ Object.assign(S, JSON.parse(localStorage.getItem(KEY) || '{}')); }catch(e){}
+for (const [from, tos] of Object.entries(MOVED)) for (const kind of ['picks','who','other','removed']){ if (S[kind] && S[kind][from] !== undefined){ tos.forEach((t,i) => { if ((kind==='picks'||kind==='removed'||i===0) && S[kind][t] === undefined) S[kind][t] = S[kind][from]; }); delete S[kind][from]; } }
+const save = () => { try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} };
+const WHO = ['Mom & Dad','Pop Pop & Zozo','Atita','Grantie Linda','Other'];
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let filter = 'all';
+let showRemoved = false;
+
+function render(){
+  const m = document.getElementById('main');
+  let h = '';
+  for (const L of LISTS){
+    h += `<section class="kid" id="${L.id}" style="--accent:${L.accent}"><div class="kidhead"><h2>${L.name}</h2>${L.recs?'<span class="tag rec">Recommendations</span>':''}<p>${esc(L.blurb)}</p></div>`;
+    for (const w of L.wishes){
+      const wk = L.id + '-' + w.n;
+      const live = w.opts.filter(o => !S.removed[L.id+':'+o]);
+      const shown = showRemoved ? w.opts : live;
+      if (!shown.length) continue;
+      const isTaken = live.some(o => S.who[L.id+':'+o]);
+      if (filter === 'open' && isTaken) continue;
+      if (filter === 'taken' && !isTaken) continue;
+      h += `<article class="wish${isTaken?' claimed':''}${live.length?'':' allgone'}"><div class="whead"><div class="num">${w.n}</div><div class="wtitle"><h3>${esc(w.title)}</h3>`;
+      if (w.words) h += `<p class="words">${esc(w.words)}</p>`;
+      if (w.why) h += `<p class="why">${esc(w.why)}</p>`;
+      h += `<div class="tags">`;
+      if (w.fits) h += `<span class="tag fits">For ${esc(w.fits)}</span>`;
+      if (w.star) h += `<span class="tag top">${esc(w.star)}</span>`;
+      if (w.ask) h += `<a class="tag ask" href="#questions" style="text-decoration:none">Question below</a>`;
+      if (isTaken) h += `<span class="tag got">Taken</span>`;
+      h += `<span class="tag">${live.length} option${live.length===1?'':'s'}</span></div></div></div>`;
+      if (w.note) h += `<p class="note">${esc(w.note)}</p>`;
+      h += `<div class="opts">`;
+      for (const o of shown){
+        const [t, shop, price, rating, url] = P[o];
+        const href = url || AMZ(o);
+        const ok = L.id + ':' + o;
+        const who = S.who[ok] || '';
+        const rm = !!S.removed[ok];
+        const whoLabel = who === 'Other' ? (S.other[ok] || 'Someone') : who;
+        h += `<div class="opt${S.picks[ok]?' picked':''}${who?' taken':''}${rm?' removed':''}">
+          <a class="ph" href="${href}" target="_blank" rel="noopener"><img src="${IMG(o)}" alt="${esc(t)}" loading="lazy">
+          ${S.picks[ok]?'<span class="star">★ Kid’s pick</span>':''}
+          ${who?`<span class="ribbon">${esc(whoLabel)} has this</span>`:''}</a>
+          <div class="ob"><div class="ot">${esc(t)}</div>
+          <div class="meta"><span class="shop ${shop}">${SHOP[shop]}</span>${price?`<span class="price">about ${price}</span>`:'<span class="on">price on the page</span>'}${rating?`<span class="on">★ ${rating}</span>`:''}</div>
+          <div class="acts"><a class="go" href="${href}" target="_blank" rel="noopener">See it on ${SHOP[shop]} ↗</a>
+          <button class="pick" data-k="${ok}">${S.picks[ok]?'★ Kid’s pick':'☆ Mark as kid’s pick'}</button>
+          <select class="who" data-k="${ok}" aria-label="Who's getting it"><option value="">Who’s getting it?</option>${WHO.map(x=>`<option${x===who?' selected':''}>${x}</option>`).join('')}</select>
+          ${who==='Other'?`<input class="other" data-k="${ok}" placeholder="Who?" value="${esc(S.other[ok]||'')}">`:''}
+          <label class="rm"><input type="checkbox" class="rmbox" data-k="${ok}"${rm?' checked':''}> ${rm?'Removed (uncheck to bring back)':'Remove from list'}</label>
+          </div></div></div>`;
+      }
+      h += `</div>`;
+      const links = S.links[wk] || [];
+      h += `<details class="extra"${links.length?' open':''}><summary>+ Add a link we missed${links.length?` (${links.length})`:''}</summary>
+        <form data-w="${wk}"><input name="u" type="url" placeholder="Paste a link (any store)" required><input name="t" placeholder="Note (size, color, who found it)"><button class="btn" type="submit">Add</button></form>
+        <ul class="links">${links.map((l,i)=>`<li><a href="${esc(l.u)}" target="_blank" rel="noopener">${esc(l.t||l.u)}</a><button class="x" data-w="${wk}" data-i="${i}">remove</button></li>`).join('')}</ul></details>`;
+      h += `</article>`;
+    }
+    h += `</section>`;
+  }
+  h += `<section class="qs" id="questions"><h2>Still to sort out</h2><p class="sub">For Christopher and Pixie, before this goes to the family.</p><ol>${QUESTIONS.map(q=>`<li><b>${esc(q[0])}.</b> ${esc(q[1])}</li>`).join('')}</ol></section>`;
+  m.innerHTML = h;
+  tally();
+}
+
+function tally(){
+  let total = 0, taken = 0;
+  for (const L of LISTS){ if (L.recs) continue; for (const w of L.wishes){
+    const live = w.opts.filter(o => !S.removed[L.id+':'+o]); if (!live.length) continue;
+    total++; if (live.some(o => S.who[L.id+':'+o])) taken++; } }
+  document.getElementById('tally').textContent = `${taken} of ${total} wishes taken`;
+  const n = Object.keys(S.removed).length;
+  document.getElementById('showrmWrap').classList.toggle('hide', !n);
+  document.getElementById('showrmTxt').textContent = `Show removed (${n})`;
+}
+
+function summary(){
+  const out = ['Hager Family Christmas 2026', ''];
+  const removed = [];
+  for (const L of LISTS){
+    out.push(L.name.toUpperCase());
+    for (const w of L.wishes){
+      const parts = [];
+      const live = w.opts.filter(o => { const r = S.removed[L.id+':'+o]; if (r) removed.push(`   ${L.name} · ${w.title}: ${P[o][0]}`); return !r; });
+      if (!live.length) continue;
+      for (const o of live){
+        const ok = L.id+':'+o, who = S.who[ok];
+        if (S.picks[ok] || who){
+          parts.push(`   ${S.picks[ok]?'★ ':''}${P[o][0]}${who?' — '+(who==='Other'?(S.other[ok]||'Other'):who):' — still open'}\n     ${P[o][4]||AMZ(o)}`);
+        }
+      }
+      out.push(`${w.n}. ${w.title}${parts.length?'':' — no pick yet'}`);
+      out.push(...parts);
+    }
+    out.push('');
+  }
+  if (removed.length){ out.push('REMOVED'); out.push(...removed); out.push(''); }
+  return out.join('\n');
+}
+
+const toast = msg => { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 1800); };
+
+document.addEventListener('click', e => {
+  const p = e.target.closest('.pick');
+  if (p){ const k = p.dataset.k; S.picks[k] = !S.picks[k]; if (!S.picks[k]) delete S.picks[k]; save(); render(); return; }
+  const x = e.target.closest('.x');
+  if (x){ S.links[x.dataset.w].splice(+x.dataset.i, 1); save(); render(); return; }
+  const f = e.target.closest('.filter button');
+  if (f){ filter = f.dataset.f; document.querySelectorAll('.filter button').forEach(b => b.classList.toggle('on', b === f)); render(); return; }
+  if (e.target.id === 'copy'){
+    const txt = summary();
+    (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(()=>toast('Summary copied'), ()=>{ prompt('Copy this:', txt); });
+  }
+});
+document.addEventListener('change', e => {
+  if (e.target.classList.contains('who')){ const k = e.target.dataset.k; if (e.target.value) S.who[k] = e.target.value; else delete S.who[k]; save(); render(); }
+  if (e.target.classList.contains('other')){ S.other[e.target.dataset.k] = e.target.value; save(); render(); }
+  if (e.target.classList.contains('rmbox')){ const k = e.target.dataset.k; if (e.target.checked){ S.removed[k] = true; toast('Removed. "Show removed" brings it back.'); } else delete S.removed[k]; save(); render(); }
+  if (e.target.id === 'showrm'){ showRemoved = e.target.checked; render(); }
+});
+document.addEventListener('submit', e => {
+  const f = e.target.closest('form[data-w]'); if (!f) return;
+  e.preventDefault();
+  const w = f.dataset.w; (S.links[w] = S.links[w] || []).push({u:f.u.value.trim(), t:f.t.value.trim()}); save(); render();
+});
+
+// countdown and snow
+(function(){
+  const now = new Date(); const xmas = new Date(now.getFullYear(), 11, 25);
+  if (now > xmas) xmas.setFullYear(xmas.getFullYear() + 1);
+  const d = Math.ceil((xmas - new Date(now.getFullYear(), now.getMonth(), now.getDate())) / 86400000);
+  document.getElementById('days').textContent = d;
+  const sn = document.getElementById('snow');
+  for (let i = 0; i < 40; i++){
+    const f = document.createElement('i');
+    f.style.left = Math.random()*100 + '%';
+    f.style.animationDuration = (7 + Math.random()*9) + 's';
+    f.style.animationDelay = (-Math.random()*16) + 's';
+    const s = 2 + Math.random()*4; f.style.width = f.style.height = s + 'px';
+    f.style.opacity = .3 + Math.random()*.6;
+    sn.appendChild(f);
+  }
+})();
+render();
+</script>
+</body>
+</html>
