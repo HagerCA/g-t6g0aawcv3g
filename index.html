@@ -148,6 +148,9 @@ footer .mono-s{font-family:var(--display);font-style:italic;color:var(--gold);fo
 .undo:hover{border-color:var(--berry);color:#F2A0A4}
 .lockin{cursor:pointer;border:0;background:var(--hudson);color:var(--crown);border-radius:9px;padding:7px;font-family:var(--head);font-size:13.5px;font-weight:700}
 .who:disabled,.undo:disabled{opacity:.5}
+.rmbtn{cursor:pointer;border:1px dashed rgba(194,71,79,.6);background:transparent;color:#F2A0A4;border-radius:9px;padding:5px;font-family:var(--head);font-size:12.5px}
+.rmbtn.back{border-style:solid;border-color:var(--gold);color:var(--gold-2)}
+.opt.removed .rmbtn.back{opacity:1}
 .master{font-family:var(--head);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--crown);background:var(--gold);border-radius:999px;padding:4px 10px}
 @media (max-width:600px){.note,.extra{margin-left:0}.opts{grid-template-columns:1fr 1fr}.ot{font-size:14.5px}}
 </style>
@@ -160,6 +163,7 @@ footer .mono-s{font-family:var(--display);font-style:italic;color:var(--gold);fo
   <h1>Christmas <em>2026</em></h1>
   <div class="count"><b id="days">--</b> days to Christmas</div>
   <p class="intro">Hudson and Hendrix wrote their lists by hand. Here they are with pictures and links. Tap a picture to see it on the store's site. When you're buying something, choose your name under it. It locks for everyone, so nobody doubles up.</p>
+  <p class="intro">Sizes: pajamas are boys’ 10 to 12. For hoodies and anything else to wear, check with Pixie.</p>
 </header>
 
 <nav>
@@ -175,6 +179,7 @@ footer .mono-s{font-family:var(--display);font-style:italic;color:var(--gold);fo
       <button data-f="open">Still open</button>
       <button data-f="taken">Taken</button>
     </div>
+    <label class="showrm hide" id="hideRmWrap"><input type="checkbox" id="hideRm"> Hide removed (<span id="rmCount">0</span>)</label>
     <span class="tally" id="tally"></span>
     <button class="btn hide" id="copy">Copy the summary</button>
   </div>
@@ -307,11 +312,11 @@ const LISTS = [
    { n:3, title:'A go-kart', words:'go krat', note:'Electric go-karts made for kids. At $148 to $300, a good one for a few people to go in on together.', opts:['B083G8M85R','B0D937T99N','B0HFWL5BY8'] },
    { n:4, title:'A mini pinball machine', words:'a mini pin ball machine', note:'One for each boy. Hudson has his own on his list, so they can be different. The first one is Spider-Man.', opts:['B0C4DSCCNH','B0C5F3BZ7G','B08KR87G98','B0FWRSMTG4','B08P5XGHJG'] },
    { n:5, title:'Spider-Man web-shooter (ZipString)', words:'sipder man zipsring', note:'ZipString makes a Spider-Man-style wrist launcher called the Aracna. It shoots a loop of string out and reels it back.', opts:['B0FQLK994V','B09ZNVR75Q'] },
-   { n:6, title:'Spider-Man pajamas', words:'Spider man jammis', ask:true, note:'Pick his size on the store page.', opts:['B07K1GS811','B0FV5GXBYG'] },
+   { n:6, title:'Spider-Man pajamas', words:'Spider man jammis', note:'Pajamas: boys’ size 10 to 12.', opts:['B07K1GS811','B0FV5GXBYG'] },
    { n:7, title:'Spider-Man plush', words:'spider man plushe', opts:['B0DK7XB4B7','B0BSMY1JHV','B0G263JJ44'] },
    { n:8, title:'Deadpool pajamas', words:'Deadpool jammis', note:'Nobody makes Deadpool pajamas in kids’ sizes: I checked Amazon, Target, Walmart and Hot Topic. Closest in kid sizes: a Deadpool blanket, and the same hooded one-piece style as the onesie in Spider-Man or Miles Morales. The adult Deadpool onesie is last, in case a small adult size turns up.', opts:['B0FZF7FN8T','B0H69SHCV2','B0DCZMCFTC'] },
    { n:9, title:'Deadpool plush', words:'Deadpool plushe', opts:['B09PJTZSYJ','B0CDKZY91G','B0D1LT82YZ'] },
-   { n:11, title:'Spider-Man hoodie', words:'spider man hoody', star:'He likes the first one', note:'The first one is his favorite. After it: the same mask-hood style in Miles Morales and Iron Man versions. I couldn’t find an Iron Spider hoodie in kids’ sizes. Pick a size between 8 and 12 on the store page.', opts:['B08618BNFS','B0FKBW4CH6','B0861XGD9N','B0FFTL4HPG','B0CLM74XNT','B0D236F13J','B0FFN3NLP6','B0D82R3D7S','B0H9VC5VJ9','B091D6YNR7'] },
+   { n:11, title:'Spider-Man hoodie', words:'spider man hoody', star:'He likes the first one', note:'The first one is his favorite. After it: the same mask-hood style in Miles Morales and Iron Man versions. I couldn’t find an Iron Spider hoodie in kids’ sizes. For his size, check with Pixie.', opts:['B08618BNFS','B0FKBW4CH6','B0861XGD9N','B0FFTL4HPG','B0CLM74XNT','B0D236F13J','B0FFN3NLP6','B0D82R3D7S','B0H9VC5VJ9','B091D6YNR7'] },
  ]},
  { id:'both', name:'Both boys', accent:'var(--both)', blurb:'Gifts for the two of them together.',
    wishes:[
@@ -362,10 +367,39 @@ const saveMine = () => LS.set('hager-xmas-2026-mine', JSON.stringify([...mine]))
 let claims = {}, wishTaken = {};
 let status = ENDPOINT.indexOf('http') === 0 ? 'loading' : 'off';
 let busy = false, other = {}, filter = 'all';
+/* Removals ride in the same sheet as claims, keyed "rm:<gift key>". Only the master link shows Remove. */
+let removed = new Set(), hideRemoved = false, importing = false;
 
 function apply(list){
-  claims = {}; wishTaken = {};
-  for (const c of list || []){ claims[c.key] = c.who; wishTaken[c.wish] = c; }
+  claims = {}; wishTaken = {}; removed = new Set();
+  for (const c of list || []){
+    if (c.key.indexOf('rm:') === 0){ removed.add(c.key.slice(3)); continue; }
+    claims[c.key] = c.who; wishTaken[c.wish] = c;
+  }
+}
+function setRemoved(ok, on){
+  const f = findOpt(ok); if (!f) return;
+  busy = true; render();
+  const p = on ? {action:'claim', key:'rm:' + ok, wish:'rm:' + ok, who:'Removed by Christopher', gift:P[f.o][0], forWho:f.L.name}
+               : {action:'release', key:'rm:' + ok, admin:adminKey};
+  api(p).then(res => toast(res.ok ? (on ? 'Removed from the list' : 'Back on the list') : 'That didn’t save. Try again.'))
+    .catch(() => toast('That didn’t save. Check your connection and try again.'))
+    .then(() => { busy = false; render(); });
+}
+/* One time: bring over removals made on the earlier on-device version of this page, on this phone. */
+function importOld(){
+  if (importing || LS.get('hager-xmas-2026-imported', '')) return;
+  let old = {};
+  try{ old = JSON.parse(LS.get('hager-xmas-2026', '{}')).removed || {}; }catch(e){}
+  const keys = Object.keys(old).filter(k => old[k] && findOpt(k) && !removed.has(k) && !claims[k]);
+  if (!keys.length){ LS.set('hager-xmas-2026-imported', '1'); return; }
+  importing = true; busy = true; render();
+  toast(`Bringing over ${keys.length} removals you made earlier…`);
+  keys.reduce((pr, k) => pr.then(() => { const f = findOpt(k);
+      return api({action:'claim', key:'rm:' + k, wish:'rm:' + k, who:'Removed by Christopher', gift:P[f.o][0], forWho:f.L.name}); }), Promise.resolve())
+    .then(() => { LS.set('hager-xmas-2026-imported', '1'); toast(`${keys.length} earlier removals applied`); })
+    .catch(() => toast('Some earlier removals didn’t save. Refresh to try again.'))
+    .then(() => { importing = false; busy = false; render(); });
 }
 function api(params){
   const u = ENDPOINT + '?' + new URLSearchParams(Object.assign({device, t: Date.now()}, params));
@@ -376,7 +410,8 @@ function refresh(){
   return api(adminKey ? {action:'check', admin:adminKey} : {})
     .then(res => { if (adminKey) isAdmin = !!res.admin; })
     .catch(() => { if (status !== 'live') status = 'offline'; })
-    .then(render);
+    .then(render)
+    .then(() => { if (isAdmin) importOld(); });
 }
 function findOpt(ok){
   for (const L of LISTS) for (const w of L.wishes) for (const o of w.opts)
@@ -410,6 +445,7 @@ function release(ok){
 
 const plural = n => /&| and /i.test(n);
 function claimBox(ok, wk, title){
+  if (removed.has(ok)) return `<div class="gotit dim">Removed. Only you can see this.</div>`;
   const who = claims[ok];
   if (who){
     const canUndo = mine.has(ok) || isAdmin;
@@ -433,23 +469,28 @@ function render(){
     for (const w of L.wishes){
       const wk = L.id + '-' + w.n;
       const isTaken = !!wishTaken[wk];
+      const live = w.opts.filter(o => !removed.has(L.id + ':' + o));
+      const shown = isAdmin && !hideRemoved ? w.opts : live;
+      if (!shown.length) continue;
       if (filter === 'open' && isTaken) continue;
       if (filter === 'taken' && !isTaken) continue;
-      h += `<article class="wish${isTaken?' claimed':''}"><div class="whead"><div class="num">${w.n}</div><div class="wtitle"><h3>${esc(w.title)}</h3>`;
+      h += `<article class="wish${isTaken?' claimed':''}${live.length?'':' allgone'}"><div class="whead"><div class="num">${w.n}</div><div class="wtitle"><h3>${esc(w.title)}</h3>`;
       if (w.words) h += `<p class="words">${esc(w.words)}</p>`;
       if (w.why) h += `<p class="why">${esc(w.why)}</p>`;
       h += `<div class="tags">`;
       if (w.star) h += `<span class="tag top">${esc(w.star)}</span>`;
       if (isTaken) h += `<span class="tag got">Taken</span>`;
-      h += `<span class="tag">${w.opts.length} option${w.opts.length===1?'':'s'}</span></div></div></div>`;
+      if (!live.length) h += `<span class="tag ask">All removed</span>`;
+      h += `<span class="tag">${live.length} option${live.length===1?'':'s'}</span></div></div></div>`;
       if (w.note) h += `<p class="note">${esc(w.note)}</p>`;
       h += `<div class="opts">`;
-      for (const o of w.opts){
+      for (const o of shown){
         const [t, shop, price, rating, url] = P[o];
         const href = url || AMZ(o);
         const ok = L.id + ':' + o;
         const who = claims[ok];
-        const dim = isTaken && !who;
+        const rm = removed.has(ok);
+        const dim = rm || (isTaken && !who);
         h += `<div class="opt${who?' taken':''}${dim?' removed':''}">
           <a class="ph" href="${href}" target="_blank" rel="noopener"><img src="${IMG(o)}" alt="${esc(t)}" loading="lazy">
           ${who?`<span class="ribbon">${esc(who)} ${plural(who) ? 'have' : 'has'} this</span>`:''}</a>
@@ -457,6 +498,7 @@ function render(){
           <div class="meta"><span class="shop ${shop}">${SHOP[shop]}</span>${price?`<span class="price">about ${price}</span>`:'<span class="on">price on the page</span>'}${rating?`<span class="on">★ ${rating}</span>`:''}</div>
           <div class="acts"><a class="go" href="${href}" target="_blank" rel="noopener">See it on ${SHOP[shop]} ↗</a>
           ${claimBox(ok, wk, t)}
+          ${isAdmin && !who ? `<button class="rmbtn${rm?' back':''}" data-k="${ok}"${busy?' disabled':''}>${rm ? 'Bring it back' : 'Remove from list'}</button>` : ''}
           </div></div></div>`;
       }
       h += `</div></article>`;
@@ -469,10 +511,12 @@ function render(){
 
 function tally(){
   let total = 0, taken = 0;
-  for (const L of LISTS){ if (L.recs) continue; for (const w of L.wishes){ total++; if (wishTaken[L.id + '-' + w.n]) taken++; } }
+  for (const L of LISTS){ if (L.recs) continue; for (const w of L.wishes){ if (!w.opts.some(o => !removed.has(L.id + ':' + o))) continue; total++; if (wishTaken[L.id + '-' + w.n]) taken++; } }
   document.getElementById('tally').textContent = status === 'live' ? `${taken} of ${total} wishes taken` : '';
   document.getElementById('master').classList.toggle('hide', !isAdmin);
   document.getElementById('copy').classList.toggle('hide', !isAdmin);
+  document.getElementById('hideRmWrap').classList.toggle('hide', !isAdmin);
+  document.getElementById('rmCount').textContent = removed.size;
 }
 
 function summary(){
@@ -480,6 +524,7 @@ function summary(){
   for (const L of LISTS){
     out.push(L.name.toUpperCase());
     for (const w of L.wishes){
+      if (!w.opts.some(o => !removed.has(L.id + ':' + o))) continue;
       const t = wishTaken[L.id + '-' + w.n];
       if (t){ const o = t.key.split(':')[1]; out.push(`${w.n}. ${w.title}: ${t.who}\n     ${P[o] ? P[o][0] : o}`); }
       else out.push(`${w.n}. ${w.title}: still open`);
@@ -493,6 +538,7 @@ const toast = msg => { const t = document.getElementById('toast'); t.textContent
 
 document.addEventListener('click', e => {
   const u = e.target.closest('.undo'); if (u){ release(u.dataset.k); return; }
+  const r = e.target.closest('.rmbtn'); if (r){ setRemoved(r.dataset.k, !removed.has(r.dataset.k)); return; }
   const l = e.target.closest('.lockin');
   if (l){ const k = l.dataset.k; const name = (other[k] || '').trim(); if (!name){ toast('Type your name first'); return; } claim(k, name); return; }
   const f = e.target.closest('.filter button');
@@ -503,6 +549,7 @@ document.addEventListener('click', e => {
   }
 });
 document.addEventListener('change', e => {
+  if (e.target.id === 'hideRm'){ hideRemoved = e.target.checked; render(); return; }
   if (e.target.classList.contains('who')){
     const k = e.target.dataset.k, v = e.target.value;
     if (v === 'Someone else'){ other[k] = ''; render(); const i = document.querySelector(`.other[data-k="${k}"]`); if (i) i.focus(); }
