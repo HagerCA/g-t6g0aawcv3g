@@ -142,6 +142,13 @@ footer .mono-s{font-family:var(--display);font-style:italic;color:var(--gold);fo
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--crown);padding:10px 18px;border-radius:999px;font-family:var(--head);font-weight:600;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:50}
 .toast.show{opacity:1}
 .hide{display:none!important}
+.gotit{font-family:var(--head);font-size:13.5px;font-weight:600;color:var(--hudson);padding:4px 2px}
+.gotit.dim{color:var(--dim);font-weight:500}
+.undo{cursor:pointer;border:1px solid var(--line);background:transparent;color:var(--ink-2);border-radius:9px;padding:5px;font-family:var(--head);font-size:12.5px}
+.undo:hover{border-color:var(--berry);color:#F2A0A4}
+.lockin{cursor:pointer;border:0;background:var(--hudson);color:var(--crown);border-radius:9px;padding:7px;font-family:var(--head);font-size:13.5px;font-weight:700}
+.who:disabled,.undo:disabled{opacity:.5}
+.master{font-family:var(--head);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--crown);background:var(--gold);border-radius:999px;padding:4px 10px}
 @media (max-width:600px){.note,.extra{margin-left:0}.opts{grid-template-columns:1fr 1fr}.ot{font-size:14.5px}}
 </style>
 </head>
@@ -152,7 +159,7 @@ footer .mono-s{font-family:var(--display);font-style:italic;color:var(--gold);fo
   <div class="mono" aria-label="Hager Family"><span>H<em>F</em></span></div>
   <h1>Christmas <em>2026</em></h1>
   <div class="count"><b id="days">--</b> days to Christmas</div>
-  <p class="intro">Hudson and Hendrix wrote their lists by hand. Here they are with pictures and links. Tap a picture to see it on the store's site, and pick who's getting it from the dropdown so nobody doubles up.</p>
+  <p class="intro">Hudson and Hendrix wrote their lists by hand. Here they are with pictures and links. Tap a picture to see it on the store's site. When you're buying something, choose your name under it. It locks for everyone, so nobody doubles up.</p>
 </header>
 
 <nav>
@@ -161,16 +168,15 @@ footer .mono-s{font-family:var(--display);font-style:italic;color:var(--gold);fo
     <a href="#hendrix"><span class="dot" style="background:var(--hendrix)"></span>Hendrix</a>
     <a href="#both"><span class="dot" style="background:var(--both)"></span>Both boys</a>
     <a href="#recs-hudson"><span class="dot" style="background:var(--recs)"></span>SAGE's picks</a>
-    <a href="#questions"><span class="dot" style="background:var(--berry)"></span>Still to sort out</a>
     <span class="sp"></span>
+    <span class="master hide" id="master">Master control</span>
     <div class="filter" role="group" aria-label="Show">
       <button data-f="all" class="on">All</button>
       <button data-f="open">Still open</button>
       <button data-f="taken">Taken</button>
     </div>
-    <label class="showrm hide" id="showrmWrap"><input type="checkbox" id="showrm"> <span id="showrmTxt">Show removed</span></label>
     <span class="tally" id="tally"></span>
-    <button class="btn" id="copy">Copy the summary</button>
+    <button class="btn hide" id="copy">Copy the summary</button>
   </div>
 </nav>
 
@@ -178,7 +184,7 @@ footer .mono-s{font-family:var(--display);font-style:italic;color:var(--gold);fo
 
 <footer>
   <p><span class="mono-s">HF</span> &nbsp;Prices were checked on November 21 and 23, 2026 and they move, especially on Amazon. Always check the store page before buying.</p>
-  <p>For now, gold "kid's pick" stars and who's-getting-it choices are saved on the device you make them on.</p>
+  <p>Everyone sees the same list. Picked the wrong thing? Tap Undo on the same phone you picked it on, or tell Christopher.</p>
 </footer>
 
 <div class="toast" id="toast"></div>
@@ -336,27 +342,88 @@ const LISTS = [
  ]},
 ];
 
-const QUESTIONS = [
- ['Sizes', 'Hendrix is 8 to 12 for the hoodie. What size pajamas for each boy? The pajama picks need it.'],
- ['PS5', 'Disc or digital?'],
-];
-
-// carry over choices made before items moved between lists
-const MOVED = {'hendrix:B0FRGTYSL5':['both:B0FRGTYSL5'], 'hendrix:B0FRGMYJMG':['both:B0FRGMYJMG'],
-  'recs:B0FQLK994V':['recs-hudson:B0FQLK994V'], 'recs:B0FFKL233T':['recs-hudson:B0FFKL233T'],
-  'recs:B0G2SYCFXD':['recs-hendrix:B0G2SYCFXD'], 'recs:B08TMX7DWK':['recs-hendrix:B08TMX7DWK']};
-for (const a of ['B0C4DSCCNH','B0C5F3BZ7G','B08KR87G98','B0FWRSMTG4','B08P5XGHJG']) MOVED['both:'+a] = ['hudson:'+a, 'hendrix:'+a];
-
-/* state: picks[optKey]=true, who[optKey]="name", other[optKey]="text", links[wishKey]=[{u,t}] */
-const KEY = 'hager-xmas-2026';
-let S = {picks:{}, who:{}, other:{}, links:{}, removed:{}};
-try{ Object.assign(S, JSON.parse(localStorage.getItem(KEY) || '{}')); }catch(e){}
-for (const [from, tos] of Object.entries(MOVED)) for (const kind of ['picks','who','other','removed']){ if (S[kind] && S[kind][from] !== undefined){ tos.forEach((t,i) => { if ((kind==='picks'||kind==='removed'||i===0) && S[kind][t] === undefined) S[kind][t] = S[kind][from]; }); delete S[kind][from]; } }
-const save = () => { try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} };
+/* Shared claims. Every claim lives in Christopher's Google Sheet, so every phone sees the same list.
+   One claim per wish: once any option of a wish is claimed, the whole wish is taken. */
+const ENDPOINT = 'https://script.google.com/macros/s/AKfycbxwysorFUFy2KJqEK5yEjtF6e0pWbz1Z8UzqhnY0cz75xyrxumqsYPT2S9uVEQJQqqm/exec';
 const WHO = ['Mom & Dad','Pop Pop & Zozo','Atita','Grantie Linda','Other'];
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-let filter = 'all';
-let showRemoved = false;
+const LS = {
+  get(k, d){ try{ const v = localStorage.getItem(k); return v === null ? d : v; }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem(k, v); }catch(e){} }
+};
+let device = LS.get('hager-xmas-2026-device', '');
+if (!device){ device = Array.from(crypto.getRandomValues(new Uint8Array(12)), b => b.toString(16).padStart(2,'0')).join(''); LS.set('hager-xmas-2026-device', device); }
+const qp = new URLSearchParams(location.search);
+if (qp.get('admin')){ LS.set('hager-xmas-2026-admin', qp.get('admin')); qp.delete('admin'); history.replaceState(null, '', location.pathname + (qp.toString() ? '?' + qp : '') + location.hash); }
+const adminKey = LS.get('hager-xmas-2026-admin', '');
+let isAdmin = false;
+let mine = new Set(JSON.parse(LS.get('hager-xmas-2026-mine', '[]')));
+const saveMine = () => LS.set('hager-xmas-2026-mine', JSON.stringify([...mine]));
+let claims = {}, wishTaken = {};
+let status = ENDPOINT.indexOf('http') === 0 ? 'loading' : 'off';
+let busy = false, other = {}, filter = 'all';
+
+function apply(list){
+  claims = {}; wishTaken = {};
+  for (const c of list || []){ claims[c.key] = c.who; wishTaken[c.wish] = c; }
+}
+function api(params){
+  const u = ENDPOINT + '?' + new URLSearchParams(Object.assign({device, t: Date.now()}, params));
+  return fetch(u, {cache:'no-store'}).then(r => r.json()).then(res => { if (res.claims) apply(res.claims); status = 'live'; return res; });
+}
+function refresh(){
+  if (status === 'off' || busy) return Promise.resolve();
+  return api(adminKey ? {action:'check', admin:adminKey} : {})
+    .then(res => { if (adminKey) isAdmin = !!res.admin; })
+    .catch(() => { if (status !== 'live') status = 'offline'; })
+    .then(render);
+}
+function findOpt(ok){
+  for (const L of LISTS) for (const w of L.wishes) for (const o of w.opts)
+    if (L.id + ':' + o === ok) return {L, w, o, wk: L.id + '-' + w.n};
+}
+function claim(ok, who){
+  const f = findOpt(ok); if (!f || !who) return;
+  if (!confirm(`Lock in "${P[f.o][0]}" for ${who}?\n\nEveryone will see that ${f.L.recs ? 'it' : f.L.name + '’s ' + f.w.title} is taken.`)){ render(); return; }
+  busy = true; render();
+  api({action:'claim', key:ok, wish:f.wk, who, gift:P[f.o][0], forWho:f.L.name})
+    .then(res => {
+      if (res.ok){ mine.add(ok); saveMine(); toast(`Locked in for ${who}`); }
+      else if (res.error === 'taken') toast(`${res.who} just claimed that one`);
+      else toast('That didn’t save. Try again in a moment.');
+    })
+    .catch(() => toast('That didn’t save. Check your connection and try again.'))
+    .then(() => { busy = false; delete other[ok]; render(); });
+}
+function release(ok){
+  const who = claims[ok];
+  if (!confirm(`Undo ${who}’s claim? It goes back on the list for everyone.`)) return;
+  busy = true; render();
+  api({action:'release', key:ok, admin: isAdmin ? adminKey : ''})
+    .then(res => {
+      if (res.ok){ mine.delete(ok); saveMine(); toast('Back on the list'); }
+      else toast(res.error === 'not yours' ? 'Only the phone that claimed it can undo it' : 'That didn’t save. Try again.');
+    })
+    .catch(() => toast('That didn’t save. Check your connection and try again.'))
+    .then(() => { busy = false; render(); });
+}
+
+const plural = n => /&| and /i.test(n);
+function claimBox(ok, wk, title){
+  const who = claims[ok];
+  if (who){
+    const canUndo = mine.has(ok) || isAdmin;
+    return `<div class="gotit">✓ ${esc(who)} ${plural(who) ? 'are' : 'is'} getting this</div>${canUndo ? `<button class="undo" data-k="${ok}"${busy?' disabled':''}>${mine.has(ok) ? 'Undo' : 'Undo (master control)'}</button>` : ''}`;
+  }
+  const t = wishTaken[wk];
+  if (t) return `<div class="gotit dim">Taken: ${esc(t.who)} picked another option</div>`;
+  if (status === 'off') return `<div class="gotit dim">Claiming opens soon</div>`;
+  if (status === 'loading') return `<div class="gotit dim">Loading the shared list…</div>`;
+  if (status === 'offline') return `<div class="gotit dim">Can’t reach the shared list. Refresh to try again.</div>`;
+  const sel = other[ok] !== undefined ? 'Other' : '';
+  return `<select class="who" data-k="${ok}" aria-label="I'm getting this for ${esc(title)}"${busy?' disabled':''}><option value="">I’m getting this…</option>${WHO.map(x=>`<option${x===sel?' selected':''}>${x === 'Other' ? 'Someone else' : x}</option>`).join('')}</select>
+    ${sel ? `<input class="other" data-k="${ok}" placeholder="Your name" value="${esc(other[ok])}"><button class="lockin" data-k="${ok}">Lock it in</button>` : ''}`;
+}
 
 function render(){
   const m = document.getElementById('main');
@@ -365,99 +432,69 @@ function render(){
     h += `<section class="kid" id="${L.id}" style="--accent:${L.accent}"><div class="kidhead"><h2>${L.name}</h2>${L.recs?'<span class="tag rec">Recommendations</span>':''}<p>${esc(L.blurb)}</p></div>`;
     for (const w of L.wishes){
       const wk = L.id + '-' + w.n;
-      const live = w.opts.filter(o => !S.removed[L.id+':'+o]);
-      const shown = showRemoved ? w.opts : live;
-      if (!shown.length) continue;
-      const isTaken = live.some(o => S.who[L.id+':'+o]);
+      const isTaken = !!wishTaken[wk];
       if (filter === 'open' && isTaken) continue;
       if (filter === 'taken' && !isTaken) continue;
-      h += `<article class="wish${isTaken?' claimed':''}${live.length?'':' allgone'}"><div class="whead"><div class="num">${w.n}</div><div class="wtitle"><h3>${esc(w.title)}</h3>`;
+      h += `<article class="wish${isTaken?' claimed':''}"><div class="whead"><div class="num">${w.n}</div><div class="wtitle"><h3>${esc(w.title)}</h3>`;
       if (w.words) h += `<p class="words">${esc(w.words)}</p>`;
       if (w.why) h += `<p class="why">${esc(w.why)}</p>`;
       h += `<div class="tags">`;
-      if (w.fits) h += `<span class="tag fits">For ${esc(w.fits)}</span>`;
       if (w.star) h += `<span class="tag top">${esc(w.star)}</span>`;
-      if (w.ask) h += `<a class="tag ask" href="#questions" style="text-decoration:none">Question below</a>`;
       if (isTaken) h += `<span class="tag got">Taken</span>`;
-      h += `<span class="tag">${live.length} option${live.length===1?'':'s'}</span></div></div></div>`;
+      h += `<span class="tag">${w.opts.length} option${w.opts.length===1?'':'s'}</span></div></div></div>`;
       if (w.note) h += `<p class="note">${esc(w.note)}</p>`;
       h += `<div class="opts">`;
-      for (const o of shown){
+      for (const o of w.opts){
         const [t, shop, price, rating, url] = P[o];
         const href = url || AMZ(o);
         const ok = L.id + ':' + o;
-        const who = S.who[ok] || '';
-        const rm = !!S.removed[ok];
-        const whoLabel = who === 'Other' ? (S.other[ok] || 'Someone') : who;
-        h += `<div class="opt${S.picks[ok]?' picked':''}${who?' taken':''}${rm?' removed':''}">
+        const who = claims[ok];
+        const dim = isTaken && !who;
+        h += `<div class="opt${who?' taken':''}${dim?' removed':''}">
           <a class="ph" href="${href}" target="_blank" rel="noopener"><img src="${IMG(o)}" alt="${esc(t)}" loading="lazy">
-          ${S.picks[ok]?'<span class="star">★ Kid’s pick</span>':''}
-          ${who?`<span class="ribbon">${esc(whoLabel)} has this</span>`:''}</a>
+          ${who?`<span class="ribbon">${esc(who)} ${plural(who) ? 'have' : 'has'} this</span>`:''}</a>
           <div class="ob"><div class="ot">${esc(t)}</div>
           <div class="meta"><span class="shop ${shop}">${SHOP[shop]}</span>${price?`<span class="price">about ${price}</span>`:'<span class="on">price on the page</span>'}${rating?`<span class="on">★ ${rating}</span>`:''}</div>
           <div class="acts"><a class="go" href="${href}" target="_blank" rel="noopener">See it on ${SHOP[shop]} ↗</a>
-          <button class="pick" data-k="${ok}">${S.picks[ok]?'★ Kid’s pick':'☆ Mark as kid’s pick'}</button>
-          <select class="who" data-k="${ok}" aria-label="Who's getting it"><option value="">Who’s getting it?</option>${WHO.map(x=>`<option${x===who?' selected':''}>${x}</option>`).join('')}</select>
-          ${who==='Other'?`<input class="other" data-k="${ok}" placeholder="Who?" value="${esc(S.other[ok]||'')}">`:''}
-          <label class="rm"><input type="checkbox" class="rmbox" data-k="${ok}"${rm?' checked':''}> ${rm?'Removed (uncheck to bring back)':'Remove from list'}</label>
+          ${claimBox(ok, wk, t)}
           </div></div></div>`;
       }
-      h += `</div>`;
-      const links = S.links[wk] || [];
-      h += `<details class="extra"${links.length?' open':''}><summary>+ Add a link we missed${links.length?` (${links.length})`:''}</summary>
-        <form data-w="${wk}"><input name="u" type="url" placeholder="Paste a link (any store)" required><input name="t" placeholder="Note (size, color, who found it)"><button class="btn" type="submit">Add</button></form>
-        <ul class="links">${links.map((l,i)=>`<li><a href="${esc(l.u)}" target="_blank" rel="noopener">${esc(l.t||l.u)}</a><button class="x" data-w="${wk}" data-i="${i}">remove</button></li>`).join('')}</ul></details>`;
-      h += `</article>`;
+      h += `</div></article>`;
     }
     h += `</section>`;
   }
-  h += `<section class="qs" id="questions"><h2>Still to sort out</h2><p class="sub">For Christopher and Pixie, before this goes to the family.</p><ol>${QUESTIONS.map(q=>`<li><b>${esc(q[0])}.</b> ${esc(q[1])}</li>`).join('')}</ol></section>`;
   m.innerHTML = h;
   tally();
 }
 
 function tally(){
   let total = 0, taken = 0;
-  for (const L of LISTS){ if (L.recs) continue; for (const w of L.wishes){
-    const live = w.opts.filter(o => !S.removed[L.id+':'+o]); if (!live.length) continue;
-    total++; if (live.some(o => S.who[L.id+':'+o])) taken++; } }
-  document.getElementById('tally').textContent = `${taken} of ${total} wishes taken`;
-  const n = Object.keys(S.removed).length;
-  document.getElementById('showrmWrap').classList.toggle('hide', !n);
-  document.getElementById('showrmTxt').textContent = `Show removed (${n})`;
+  for (const L of LISTS){ if (L.recs) continue; for (const w of L.wishes){ total++; if (wishTaken[L.id + '-' + w.n]) taken++; } }
+  document.getElementById('tally').textContent = status === 'live' ? `${taken} of ${total} wishes taken` : '';
+  document.getElementById('master').classList.toggle('hide', !isAdmin);
+  document.getElementById('copy').classList.toggle('hide', !isAdmin);
 }
 
 function summary(){
-  const out = ['Hager Family Christmas 2026', ''];
-  const removed = [];
+  const out = ['Hager Family Christmas 2026: who’s getting what', ''];
   for (const L of LISTS){
     out.push(L.name.toUpperCase());
     for (const w of L.wishes){
-      const parts = [];
-      const live = w.opts.filter(o => { const r = S.removed[L.id+':'+o]; if (r) removed.push(`   ${L.name} · ${w.title}: ${P[o][0]}`); return !r; });
-      if (!live.length) continue;
-      for (const o of live){
-        const ok = L.id+':'+o, who = S.who[ok];
-        if (S.picks[ok] || who){
-          parts.push(`   ${S.picks[ok]?'★ ':''}${P[o][0]}${who?' — '+(who==='Other'?(S.other[ok]||'Other'):who):' — still open'}\n     ${P[o][4]||AMZ(o)}`);
-        }
-      }
-      out.push(`${w.n}. ${w.title}${parts.length?'':' — no pick yet'}`);
-      out.push(...parts);
+      const t = wishTaken[L.id + '-' + w.n];
+      if (t){ const o = t.key.split(':')[1]; out.push(`${w.n}. ${w.title}: ${t.who}\n     ${P[o] ? P[o][0] : o}`); }
+      else out.push(`${w.n}. ${w.title}: still open`);
     }
     out.push('');
   }
-  if (removed.length){ out.push('REMOVED'); out.push(...removed); out.push(''); }
   return out.join('\n');
 }
 
-const toast = msg => { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 1800); };
+const toast = msg => { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2400); };
 
 document.addEventListener('click', e => {
-  const p = e.target.closest('.pick');
-  if (p){ const k = p.dataset.k; S.picks[k] = !S.picks[k]; if (!S.picks[k]) delete S.picks[k]; save(); render(); return; }
-  const x = e.target.closest('.x');
-  if (x){ S.links[x.dataset.w].splice(+x.dataset.i, 1); save(); render(); return; }
+  const u = e.target.closest('.undo'); if (u){ release(u.dataset.k); return; }
+  const l = e.target.closest('.lockin');
+  if (l){ const k = l.dataset.k; const name = (other[k] || '').trim(); if (!name){ toast('Type your name first'); return; } claim(k, name); return; }
   const f = e.target.closest('.filter button');
   if (f){ filter = f.dataset.f; document.querySelectorAll('.filter button').forEach(b => b.classList.toggle('on', b === f)); render(); return; }
   if (e.target.id === 'copy'){
@@ -466,16 +503,16 @@ document.addEventListener('click', e => {
   }
 });
 document.addEventListener('change', e => {
-  if (e.target.classList.contains('who')){ const k = e.target.dataset.k; if (e.target.value) S.who[k] = e.target.value; else delete S.who[k]; save(); render(); }
-  if (e.target.classList.contains('other')){ S.other[e.target.dataset.k] = e.target.value; save(); render(); }
-  if (e.target.classList.contains('rmbox')){ const k = e.target.dataset.k; if (e.target.checked){ S.removed[k] = true; toast('Removed. "Show removed" brings it back.'); } else delete S.removed[k]; save(); render(); }
-  if (e.target.id === 'showrm'){ showRemoved = e.target.checked; render(); }
+  if (e.target.classList.contains('who')){
+    const k = e.target.dataset.k, v = e.target.value;
+    if (v === 'Someone else'){ other[k] = ''; render(); const i = document.querySelector(`.other[data-k="${k}"]`); if (i) i.focus(); }
+    else if (v){ delete other[k]; claim(k, v); }
+    else { delete other[k]; render(); }
+  }
 });
-document.addEventListener('submit', e => {
-  const f = e.target.closest('form[data-w]'); if (!f) return;
-  e.preventDefault();
-  const w = f.dataset.w; (S.links[w] = S.links[w] || []).push({u:f.u.value.trim(), t:f.t.value.trim()}); save(); render();
-});
+document.addEventListener('input', e => { if (e.target.classList.contains('other')) other[e.target.dataset.k] = e.target.value; });
+document.addEventListener('visibilitychange', () => { if (!document.hidden) refresh(); });
+setInterval(() => { if (!document.hidden && !document.querySelector('.other:focus')) refresh(); }, 30000);
 
 // countdown and snow
 (function(){
@@ -495,6 +532,7 @@ document.addEventListener('submit', e => {
   }
 })();
 render();
+refresh();
 </script>
 </body>
 </html>
