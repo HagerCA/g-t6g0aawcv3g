@@ -468,7 +468,7 @@ function render(){
   let h = '';
   for (const L of LISTS){
     h += `<section class="kid" id="${L.id}" style="--accent:${L.accent}"><div class="kidhead"><h2>${L.name}</h2>${L.recs?'<span class="tag rec">Recommendations</span>':''}<p>${esc(L.blurb)}</p></div>`;
-    let lastG = '', lastS = '';
+    let lastG = '', lastS = '', letter = 0;
     for (const w of L.wishes){
       const wk = L.id + '-' + (w.id ?? w.n);
       const isTaken = !!wishTaken[wk];
@@ -479,7 +479,7 @@ function render(){
       if (filter === 'taken' && !isTaken) continue;
       if (w.group && w.group !== lastG){ h += `<h3 class="grp">${esc(w.group)}</h3>`; lastG = w.group; lastS = ''; }
       if (w.sub && w.sub !== lastS){ h += `<h4 class="sub">${esc(w.sub)}</h4>`; lastS = w.sub; }
-      h += `<article class="wish${isTaken?' claimed':''}${live.length?'':' allgone'}"><div class="whead"><div class="num">${w.n}</div><div class="wtitle"><h3>${esc(w.title)}</h3>`;
+      h += `<article class="wish${isTaken?' claimed':''}${live.length?'':' allgone'}"><div class="whead"><div class="num">${L.recs ? 'abcdefghijklmnop'[letter++] : w.n}</div><div class="wtitle"><h3>${esc(w.title)}</h3>`;
       if (w.words) h += `<p class="words">${esc(w.words)}</p>`;
       if (w.why) h += `<p class="why">${esc(w.why)}</p>`;
       h += `<div class="tags">`;
