@@ -151,6 +151,8 @@ footer .mono-s{font-family:var(--display);font-style:italic;color:var(--gold);fo
 .rmbtn{cursor:pointer;border:1px dashed rgba(194,71,79,.6);background:transparent;color:#F2A0A4;border-radius:9px;padding:5px;font-family:var(--head);font-size:12.5px}
 .rmbtn.back{border-style:solid;border-color:var(--gold);color:var(--gold-2)}
 .opt.removed .rmbtn.back{opacity:1}
+.grp{font-family:var(--head);font-size:14px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin:38px 0 0;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.sub{font-family:var(--display);font-weight:400;font-style:italic;font-size:1.5rem;color:var(--ink-2);margin:22px 0 -8px}
 .master{font-family:var(--head);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--crown);background:var(--gold);border-radius:999px;padding:4px 10px}
 @media (max-width:600px){.note,.extra{margin-left:0}.opts{grid-template-columns:1fr 1fr}.ot{font-size:14.5px}}
 </style>
@@ -293,30 +295,30 @@ const SHOP = {amazon:'Amazon', lego:'LEGO.com', bn:'Barnes & Noble'};
 const LISTS = [
  { id:'hudson', name:'Hudson', accent:'var(--hudson)', blurb:'From his list, one special request, and three more he picked in the LEGO app.',
    wishes:[
-   { n:1, title:'A LEGO Marvel set', words:'lego set marvel', note:'Four sets to choose from.', opts:['B0GF32WDX2','B0G2SXJKWZ','B0FMS91VM1','B0GF3DRQRF'] },
-   { n:2, title:'A mini pinball machine', words:'mini pinball machine', note:'One for each boy. Hendrix has his own on his list, so they can be different. The first one is Spider-Man.', opts:['B0C4DSCCNH','B0C5F3BZ7G','B08KR87G98','B0FWRSMTG4','B08P5XGHJG'] },
-   { n:3, title:'A LEGO Stranger Things set', words:'stranger things Lego set', note:'LEGO makes one big Stranger Things set right now, The Creel House, at $299.99. The BrickHeadz four-pack is the small one. The third is an older set that’s no longer made, so it costs more than it used to.', opts:['lego-11370','lego-40879','B09ST3YV73'] },
-   { n:4, title:'LEGO Marvel Dancing Groot', words:'LEGO MARVEL dancing groot', note:'Exact match. LEGO has retired this set, so LEGO.com no longer sells it. Amazon still has it.', opts:['B0CV276VQL'] },
-   { n:'+', title:'LEGO Project Hail Mary', star:'Special request', note:'The Hail Mary ship on a display stand. Rated 18+ on the box, like The Creel House.', opts:['B0FMYY67LH'] },
-   { n:6, title:'Squishable Mini Wraith', words:'Squishable mini wraith - spooky collection 10 inch soft toy collectible stuffed animal', note:'Exact match, and it’s the blue one.', opts:['B0H9T4ZKT9'] },
-   { n:7, title:'Squishable Marshmallow Stick', words:'Mini comfort food marshmallow stick - Squishable', star:'“Please this one”', note:'Not on Amazon. Barnes & Noble has it.', opts:['squishable-marshmallow'] },
-   { n:8, title:'LEGO S.H.I.E.L.D. Helicarrier', star:'From his LEGO app', note:'The Avengers’ flying aircraft carrier, new this year: 3,057 pieces, rated 18+ on the box. The biggest set on the list, a good one for a few people to go in on together.', opts:['lego-76354','B0G2T1BXG5'] },
-   { n:9, title:'LEGO Ravager Jumpsuit Groot', star:'From his LEGO app', note:'Groot in his red Ravager jumpsuit, with the bomb timer. LEGO.com says it ships in 60 days, which is after Christmas, so Amazon is the one to use.', opts:['B0FMS5T4MN'] },
-   { n:10, title:'LEGO Fortnite KIT', star:'From his LEGO app', note:'The KIT robot from Fortnite, with a bonus in-game outfit code in the box. About the same price at LEGO.com and Amazon.', opts:['lego-77081','B0G2SZZ6TR'] },
+   { id:1, n:1, group:'LEGO sets', sub:'Marvel', title:'A LEGO Marvel set', words:'lego set marvel', note:'Three sets to choose from.', opts:['B0GF32WDX2','B0G2SXJKWZ','B0FMS91VM1','B0GF3DRQRF'] },
+   { id:8, n:2, group:'LEGO sets', sub:'Marvel', title:'LEGO S.H.I.E.L.D. Helicarrier', star:'From his LEGO app', note:'The Avengers’ flying aircraft carrier, new this year: 3,057 pieces, rated 18+ on the box. The biggest set on the list, a good one for a few people to go in on together.', opts:['lego-76354','B0G2T1BXG5'] },
+   { id:4, n:3, group:'LEGO sets', sub:'Marvel', title:'LEGO Marvel Dancing Groot', words:'LEGO MARVEL dancing groot', note:'Exact match. LEGO has retired this set, so LEGO.com no longer sells it. Amazon still has it.', opts:['B0CV276VQL'] },
+   { id:9, n:4, group:'LEGO sets', sub:'Marvel', title:'LEGO Ravager Jumpsuit Groot', star:'From his LEGO app', note:'Groot in his red Ravager jumpsuit, with the bomb timer. LEGO.com says it ships in 60 days, which is after Christmas, so Amazon is the one to use.', opts:['B0FMS5T4MN'] },
+   { id:10, n:5, group:'LEGO sets', sub:'Fortnite', title:'LEGO Fortnite KIT', star:'From his LEGO app', note:'The KIT robot from Fortnite, with a bonus in-game outfit code in the box.', opts:['lego-77081','B0G2SZZ6TR'] },
+   { id:3, n:6, group:'LEGO sets', sub:'Stranger Things', title:'A LEGO Stranger Things set', words:'stranger things Lego set', note:'LEGO makes one big Stranger Things set right now, The Creel House, at $299.99. The other is an older BrickHeadz set that’s no longer made, so it costs more than it used to.', opts:['lego-11370','lego-40879','B09ST3YV73'] },
+   { id:'+', n:7, group:'LEGO sets', sub:'Project Hail Mary', title:'LEGO Project Hail Mary', star:'Special request', note:'The Hail Mary ship on a display stand. Rated 18+ on the box, like The Creel House.', opts:['B0FMYY67LH'] },
+   { id:2, n:8, group:'Pinball', title:'A mini pinball machine', words:'mini pinball machine', note:'One for each boy. Hendrix’s is the Spider-Man one, so theirs are different.', opts:['B0C4DSCCNH','B0C5F3BZ7G','B08KR87G98','B0FWRSMTG4','B08P5XGHJG'] },
+   { id:6, n:9, group:'Plushies', title:'Squishable Mini Wraith', words:'Squishable mini wraith - spooky collection 10 inch soft toy collectible stuffed animal', note:'Exact match, and it’s the blue one.', opts:['B0H9T4ZKT9'] },
+   { id:7, n:10, group:'Plushies', title:'Squishable Marshmallow Stick', words:'Mini comfort food marshmallow stick - Squishable', star:'“Please this one”', note:'Not on Amazon. Barnes & Noble has it.', opts:['squishable-marshmallow'] },
  ]},
  { id:'hendrix', name:'Hendrix', accent:'var(--hendrix)', blurb:'Eleven on his list. The PS5 is for both boys, so it lives under Both boys.',
    wishes:[
-   { n:1, title:'Iron Man helmet with voice control', words:'iron man helmat that has voices controll and face recognition. Amazon. I realy realy want this', star:'Top of his list', ask:true,
-     note:'None of the helmets I found can actually recognize faces. The best ones open and close when you talk to them, touch them, or press a remote. The first two are full adult size, so they may be big on him. The third is made for kids and teens.', opts:['B0DQSP8MXF','B0DDNP55ZW','B0DR66BWT9'] },
-   { n:2, title:'A very realistic Deadpool mask', words:'very relistic deadpool mask', note:'Masks he can wear. All three come in adult sizes.', opts:['B0D512YRT2','B0DS8VHQ6S','B0CKTTMVCY'] },
-   { n:3, title:'A go-kart', words:'go krat', note:'Electric go-karts made for kids. At $148 to $300, a good one for a few people to go in on together.', opts:['B083G8M85R','B0D937T99N','B0HFWL5BY8'] },
-   { n:4, title:'A mini pinball machine', words:'a mini pin ball machine', note:'One for each boy. Hudson has his own on his list, so they can be different. The first one is Spider-Man.', opts:['B0C4DSCCNH','B0C5F3BZ7G','B08KR87G98','B0FWRSMTG4','B08P5XGHJG'] },
-   { n:5, title:'Spider-Man web-shooter (ZipString)', words:'sipder man zipsring', note:'ZipString makes a Spider-Man-style wrist launcher called the Aracna. It shoots a loop of string out and reels it back.', opts:['B0FQLK994V','B09ZNVR75Q'] },
-   { n:6, title:'Spider-Man pajamas', words:'Spider man jammis', note:'Pajamas: boys’ size 10 to 12.', opts:['B07K1GS811','B0FV5GXBYG'] },
-   { n:7, title:'Spider-Man plush', words:'spider man plushe', opts:['B0DK7XB4B7','B0BSMY1JHV','B0G263JJ44'] },
-   { n:8, title:'Deadpool pajamas', words:'Deadpool jammis', note:'Nobody makes Deadpool pajamas in kids’ sizes: I checked Amazon, Target, Walmart and Hot Topic. Closest in kid sizes: a Deadpool blanket, and the same hooded one-piece style as the onesie in Spider-Man or Miles Morales. The adult Deadpool onesie is last, in case a small adult size turns up.', opts:['B0FZF7FN8T','B0H69SHCV2','B0DCZMCFTC'] },
-   { n:9, title:'Deadpool plush', words:'Deadpool plushe', opts:['B09PJTZSYJ','B0CDKZY91G','B0D1LT82YZ'] },
-   { n:11, title:'Spider-Man hoodie', words:'spider man hoody', star:'He likes the first one', note:'The first one is his favorite. After it: the same mask-hood style in Miles Morales and Iron Man versions. I couldn’t find an Iron Spider hoodie in kids’ sizes. For his size, check with Pixie.', opts:['B08618BNFS','B0FKBW4CH6','B0861XGD9N','B0FFTL4HPG','B0CLM74XNT','B0D236F13J','B0FFN3NLP6','B0D82R3D7S','B0H9VC5VJ9','B091D6YNR7'] },
+   { id:1, n:1, group:'Toys and gear', title:'Iron Man helmet with voice control', words:'iron man helmat that has voices controll and face recognition. Amazon. I realy realy want this', star:'Top of his list',
+     note:'None of the helmets I found can actually recognize faces. The best ones open and close when you talk to them, touch them, or press a remote. The gold one is full adult size, so it may be big on him. The other is made for kids and teens.', opts:['B0DQSP8MXF','B0DDNP55ZW','B0DR66BWT9'] },
+   { id:2, n:2, group:'Toys and gear', title:'A very realistic Deadpool mask', words:'very relistic deadpool mask', note:'Masks he can wear. Both come in adult sizes.', opts:['B0D512YRT2','B0DS8VHQ6S','B0CKTTMVCY'] },
+   { id:3, n:3, group:'Toys and gear', title:'A go-kart', words:'go krat', note:'An electric drifting go-kart made for kids. At about $148, a good one for a few people to go in on together.', opts:['B083G8M85R','B0D937T99N','B0HFWL5BY8'] },
+   { id:4, n:4, group:'Toys and gear', title:'A mini pinball machine', words:'a mini pin ball machine', note:'One for each boy. Hudson’s is the retro arcade one, so theirs are different. This one is Spider-Man.', opts:['B0C4DSCCNH','B0C5F3BZ7G','B08KR87G98','B0FWRSMTG4','B08P5XGHJG'] },
+   { id:5, n:5, group:'Toys and gear', title:'Spider-Man web-shooter (ZipString)', words:'sipder man zipsring', note:'ZipString makes a Spider-Man-style wrist launcher called the Aracna. It shoots a loop of string out and reels it back.', opts:['B0FQLK994V','B09ZNVR75Q'] },
+   { id:6, n:6, group:'Pajamas', title:'Spider-Man pajamas', words:'Spider man jammis', note:'Pajamas: boys’ size 10 to 12.', opts:['B07K1GS811','B0FV5GXBYG'] },
+   { id:8, n:7, group:'Pajamas', title:'Deadpool pajamas', words:'Deadpool jammis', note:'Nobody makes Deadpool pajamas in kids’ sizes: I checked Amazon, Target, Walmart and Hot Topic. The closest is this hooded one-piece in Spider-Man, Miles Morales or Ghost-Spider. Boys’ size 10 to 12.', opts:['B0FZF7FN8T','B0H69SHCV2','B0DCZMCFTC'] },
+   { id:7, n:8, group:'Plushies', title:'Spider-Man plush', words:'spider man plushe', opts:['B0DK7XB4B7','B0BSMY1JHV','B0G263JJ44'] },
+   { id:9, n:9, group:'Plushies', title:'Deadpool plush', words:'Deadpool plushe', opts:['B09PJTZSYJ','B0CDKZY91G','B0D1LT82YZ'] },
+   { id:11, n:10, group:'Hoodies', title:'Spider-Man hoodie', words:'spider man hoody', star:'He likes the first one', note:'The first one is his favorite. After it: a black Miles Morales hoodie and a Spider-Man pullover. For his size, check with Pixie.', opts:['B08618BNFS','B0FKBW4CH6','B0861XGD9N','B0FFTL4HPG','B0CLM74XNT','B0D236F13J','B0FFN3NLP6','B0D82R3D7S','B0H9VC5VJ9','B091D6YNR7'] },
  ]},
  { id:'both', name:'Both boys', accent:'var(--both)', blurb:'Gifts for the two of them together.',
    wishes:[
@@ -415,7 +417,7 @@ function refresh(){
 }
 function findOpt(ok){
   for (const L of LISTS) for (const w of L.wishes) for (const o of w.opts)
-    if (L.id + ':' + o === ok) return {L, w, o, wk: L.id + '-' + w.n};
+    if (L.id + ':' + o === ok) return {L, w, o, wk: L.id + '-' + (w.id ?? w.n)};
 }
 function claim(ok, who){
   const f = findOpt(ok); if (!f || !who) return;
@@ -466,14 +468,17 @@ function render(){
   let h = '';
   for (const L of LISTS){
     h += `<section class="kid" id="${L.id}" style="--accent:${L.accent}"><div class="kidhead"><h2>${L.name}</h2>${L.recs?'<span class="tag rec">Recommendations</span>':''}<p>${esc(L.blurb)}</p></div>`;
+    let lastG = '', lastS = '';
     for (const w of L.wishes){
-      const wk = L.id + '-' + w.n;
+      const wk = L.id + '-' + (w.id ?? w.n);
       const isTaken = !!wishTaken[wk];
       const live = w.opts.filter(o => !removed.has(L.id + ':' + o));
       const shown = isAdmin && !hideRemoved ? w.opts : live;
       if (!shown.length) continue;
       if (filter === 'open' && isTaken) continue;
       if (filter === 'taken' && !isTaken) continue;
+      if (w.group && w.group !== lastG){ h += `<h3 class="grp">${esc(w.group)}</h3>`; lastG = w.group; lastS = ''; }
+      if (w.sub && w.sub !== lastS){ h += `<h4 class="sub">${esc(w.sub)}</h4>`; lastS = w.sub; }
       h += `<article class="wish${isTaken?' claimed':''}${live.length?'':' allgone'}"><div class="whead"><div class="num">${w.n}</div><div class="wtitle"><h3>${esc(w.title)}</h3>`;
       if (w.words) h += `<p class="words">${esc(w.words)}</p>`;
       if (w.why) h += `<p class="why">${esc(w.why)}</p>`;
@@ -511,7 +516,7 @@ function render(){
 
 function tally(){
   let total = 0, taken = 0;
-  for (const L of LISTS){ if (L.recs) continue; for (const w of L.wishes){ if (!w.opts.some(o => !removed.has(L.id + ':' + o))) continue; total++; if (wishTaken[L.id + '-' + w.n]) taken++; } }
+  for (const L of LISTS){ if (L.recs) continue; for (const w of L.wishes){ if (!w.opts.some(o => !removed.has(L.id + ':' + o))) continue; total++; if (wishTaken[L.id + '-' + (w.id ?? w.n)]) taken++; } }
   document.getElementById('tally').textContent = status === 'live' ? `${taken} of ${total} wishes taken` : '';
   document.getElementById('master').classList.toggle('hide', !isAdmin);
   document.getElementById('copy').classList.toggle('hide', !isAdmin);
@@ -525,7 +530,7 @@ function summary(){
     out.push(L.name.toUpperCase());
     for (const w of L.wishes){
       if (!w.opts.some(o => !removed.has(L.id + ':' + o))) continue;
-      const t = wishTaken[L.id + '-' + w.n];
+      const t = wishTaken[L.id + '-' + (w.id ?? w.n)];
       if (t){ const o = t.key.split(':')[1]; out.push(`${w.n}. ${w.title}: ${t.who}\n     ${P[o] ? P[o][0] : o}`); }
       else out.push(`${w.n}. ${w.title}: still open`);
     }
